@@ -23,6 +23,7 @@ class FlagParser:
         self.cli_parser = cli_parser
         self.model: str = "test_model"
         self.schema: str = ""
+        self.database: str = ""
         self.log_level: str = "info"
         self.syrup: str = str()
         self.config_path: Path = Path(str())
@@ -61,6 +62,7 @@ class FlagParser:
         elif self.task == "doc":
             self.model = self.args.model
             self.schema = self.args.schema
+            self.database = self.args.database
             self.is_dry_run = self.args.dry_run
             # we reverse the flag so that we don't have double negatives later in the code
             self.ask_for_tests = self.args.ask_for_tests

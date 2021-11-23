@@ -102,6 +102,13 @@ document_sub_parser.add_argument(
     default=None,
 )
 document_sub_parser.add_argument(
+    "-d",
+    "--database",
+    help="Name of the database in which the model resides",
+    type=str,
+    default=None,
+)
+document_sub_parser.add_argument(
     "--dry-run",
     help="When provided the documentation task will not modify your files",
     action="store_true",
