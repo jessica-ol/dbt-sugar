@@ -171,6 +171,17 @@ class DbtProfile(BaseYamlConfig):
                 # consistent with it's profiles and it's hell to have all the validation in one
                 # pydantic model.
                 if _profile_type == "snowflake":
+                    # Use environment variables if present
+                    _target_profile = {
+                        'type'      : 'snowflake',
+                        'account'   : os.getenv("POLLEN_SNOWFLAKE_ACCOUNT",      _target_profile.get("account")),
+                        'user'      : os.getenv("POLLEN_SNOWFLAKE_USERNAME",     _target_profile.get("user")),
+                        'password'  : os.getenv("POLLEN_SNOWFLAKE_PW",           _target_profile.get("password")),
+                        'database'  : os.getenv("POLLEN_SNOWFLAKE_ANALYTICS_DB", _target_profile.get("database")),
+                        'schema'    : os.getenv("POLLEN_SNOWFLAKE_USERNAME",     _target_profile.get("schema")),
+                        'role'      : os.getenv("POLLEN_SNOWFLAKE_ROLE",         _target_profile.get("role")),
+                        'warehouse' : os.getenv("POLLEN_SNOWFLAKE_WAREHOUSE",    _target_profile.get("warehouse"))
+                        }
                     # uses pydantic to validate profile. It will raise and break app if invalid.
                     _target_profile = SnowflakeDbtProfilesModel(**_target_profile)
                 elif _profile_type == "postgres" or "redshift":
